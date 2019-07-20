@@ -3,7 +3,7 @@ import React from 'react';
 
 //ES6 version of component
 //Dont need import from component because we are exporting a function and not a compnent
-//Stateless components
+//Stateless components; should have most of these as possible
 const person = (props) => {
     //Returning JSX with paragraph that says "I'm a person"
     //Out put dynamic content like the random number for the age of the person

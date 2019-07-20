@@ -7,6 +7,7 @@ import Person from './Person/Person'
 
 
 //Made this a function
+//Statful component, smart component, container component, want less
 const App = props =>{
   //Remember state is a JavaScript object
   //PersonsState gives acess to objects and setPersons state allows us to set a new state

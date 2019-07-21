@@ -41,12 +41,25 @@ class App extends Component {
   }
 
   render(){
+
+    //We use this variable to do inline styling for the button
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    }
+
     return (
       <div className="App">
         <h1>This is an React App</h1>
         <p>This is really working!</p>
         {/* One way of switching names with the click but is not recommended */}
-        <button onClick={() => this.switchNameHandler('Maximillian!!')}>Switch Name</button>
+        <button 
+        //Using constant variable "style" to give button inline styling
+        style={style}
+        onClick={() => this.switchNameHandler('Maximillian!!')}>Switch Name</button>
         <Person 
           name={this.state.persons[0].name} 
           age={this.state.persons[0].age}/>

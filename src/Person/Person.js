@@ -14,6 +14,8 @@ const person = (props) => {
             {/* Props.children accesses anything within the JSX elements */}
             {/* onClick is the event listener and it uses props.click from the person compnent in app.js to access switchNameHandler */}
             <p>{props.children}</p>
+            {/* Included value={props.name} so that we can see the names of the person's in the input boxes */}
+            <input type="text" onChange={props.changed} value={props.name}/>
         </div>
     )
 

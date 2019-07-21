@@ -29,6 +29,17 @@ class App extends Component {
     })
   }
 
+  nameChangedHnadler = (event) => {
+    this.setState({
+      persons: [
+        {name: "Max", age: 12},
+        //event.target.value will be the new name the user typed
+        {name: event.target.value, age: 81},
+        {name: "Stephanie", age: 70}
+      ]
+    })
+  }
+
   render(){
     return (
       <div className="App">
@@ -44,7 +55,9 @@ class App extends Component {
           age={this.state.persons[1].age}
           // The "click" property will allow the Person component to change the names and ages with switchNameHandler
           // The recommended way to switch name with click
-          click={this.switchNameHandler.bind(this, 'Max!')}>My hobbies</Person>
+          click={this.switchNameHandler.bind(this, 'Max!')}
+          //Allows user to change the name of Manu (the second person component)
+          changed={this.nameChangedHnadler}>My hobbies</Person>
         <Person 
           name={this.state.persons[2].name} 
           age={this.state.persons[2].age}/>

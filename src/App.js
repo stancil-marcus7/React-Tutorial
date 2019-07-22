@@ -17,20 +17,6 @@ class App extends Component {
     showPersons: false
   }
 
-  //New name is a veraible that will be used to switch the names
-  switchNameHandler = (newName) => {
-    //console.log('Was clicked');
-    //We should not change the state lke this: this.state.persons[0].name = "Maximillian"; this will mutate the state
-    //This sets the resets the state appropriately
-    this.setState({
-      persons: [
-        {name: newName, age: 12},
-        {name: "Manu", age: 81},
-        {name: "Stephanie", age: 70}
-      ]
-    })
-  }
-
   nameChangedHandler = (event) => {
     this.setState({
       persons: [
@@ -40,6 +26,17 @@ class App extends Component {
         {name: "Stephanie", age: 70}
       ]
     })
+  }
+
+  //This function takes a Person components index and splices it from the array of persons and then resets the state
+  deletePersonHandler = (personsIndex) => {
+    //Must make copy of array before deleting objects from array. Using splice is one way of doing that
+    // const persons = this.state.persons.slice();
+
+    //Another way of creating new array called spreading; ES6 feature; update state immutably
+    const person = [...this.state.persons];
+    persons.splice(personsIndex, 1);
+    this.setState({persons: persons})
   }
 
   togglePersonsHandler = () => {
@@ -67,8 +64,10 @@ class App extends Component {
       persons = (
         <div>
           {/* Use map function to perform conditional rendering using Javascript */}
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
             return <Person 
+              //This will allow us to delete a Person component by clicking them; must use arrow function to use paramaters in function calls
+              click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}/>
           })}

@@ -8,24 +8,37 @@ class App extends Component {
   //Remember state is a JavaScript object
   state = {
     persons: [
-      {name: "Max", age: 12},
-      {name: "Manu", age: 81},
-      {name: "Stephanie", age: 500}
+      {id: '12dsfs', name: "Max", age: 12},
+      {id: 'sdfsdf', name: "Manu", age: 81},
+      {id: 'dsfsdf', name: "Stephanie", age: 500}
     ],
     otherState: 'some other value',
     //This property will be used to show the Persons or not
     showPersons: false
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: "Max", age: 12},
-        //event.target.value will be the new name the user typed
-        {name: event.target.value, age: 81},
-        {name: "Stephanie", age: 70}
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+    //Find the id of the person who's name is to be changed
+    const personsIndex = this.state.persons.findIndex(p =>{
+      return p.id === id;
+    });
+    
+    //Create another person with the same index so that we will change their name immutably
+    const person = {
+      ...this.state.persons[personsIndex]
+    }
+
+    //Assigning the name the user created to the new person
+    person.name = event.target.value;
+
+    //Creating another array so that we are changing the state immutably
+    const persons = [...this.state.persons];
+
+    //Putting the person who's name the user just changed into the new array we just created
+    persons[personsIndex] = person;
+
+    //Finally changing the state immutably
+    this.setState({persons: persons})
   }
 
   //This function takes a Person components index and splices it from the array of persons and then resets the state
@@ -35,8 +48,8 @@ class App extends Component {
 
     //Another way of creating new array called spreading; ES6 feature; update state immutably
     const person = [...this.state.persons];
-    persons.splice(personsIndex, 1);
-    this.setState({persons: persons})
+    person.splice(personsIndex, 1);
+    this.setState({persons: person})
   }
 
   togglePersonsHandler = () => {
@@ -69,7 +82,10 @@ class App extends Component {
               //This will allow us to delete a Person component by clicking them; must use arrow function to use paramaters in function calls
               click={() => this.deletePersonHandler(index)}
               name={person.name}
-              age={person.age}/>
+              age={person.age}
+              //Use the key property so that React will know exactly which component it's dealing with
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)}/>
           })}
         </div> 
       );

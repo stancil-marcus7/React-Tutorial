@@ -97,10 +97,21 @@ class App extends Component {
       style.backgroundColor = "red";
     }
 
+    //Use classes variable to do styling for the button
+    let classes = [];
+
+    if (this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+
     return (
       <div className="App">
         <h1>This is an React App</h1>
-        <p>This is really working!</p>
+        {/* This will join the two classes in the "classes" array */}
+        <p className={classes.join(' ')}>This is really working!</p>
         {/* One way of switching names with the click but is not recommended */}
         <button 
         //Using constant variable "style" to give button inline styling

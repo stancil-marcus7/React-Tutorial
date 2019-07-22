@@ -66,21 +66,13 @@ class App extends Component {
     if (this.state.showPersons){ 
       persons = (
         <div>
-            <Person 
-              name={this.state.persons[0].name} 
-              age={this.state.persons[0].age}/>
-            <Person 
-              name={this.state.persons[1].name} 
-              age={this.state.persons[1].age}
-              // The "click" property will allow the Person component to change the names and ages with switchNameHandler
-              // The recommended way to switch name with click
-              click={this.switchNameHandler.bind(this, 'Max!')}
-              //Allows user to change the name of Manu (the second person component)
-              changed={this.nameChangedHandler}>My hobbies</Person>
-            <Person 
-              name={this.state.persons[2].name} 
-              age={this.state.persons[2].age}/>
-            </div> 
+          {/* Use map function to perform conditional rendering using Javascript */}
+          {this.state.persons.map(person => {
+            return <Person 
+              name={person.name}
+              age={person.age}/>
+          })}
+        </div> 
       );
     }
 

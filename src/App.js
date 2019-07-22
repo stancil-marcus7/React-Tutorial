@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 //You can omit the .js at the end
 import Person from './Person/Person'
-import { whileStatement } from '@babel/types';
+
 
 class App extends Component {
   //Remember state is a JavaScript object
@@ -68,7 +68,12 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      //Using radium we can use psudoselectors for inline styles
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
 
     //persons is the variable that we will use to determine whether to show or unshow the Persons components
@@ -95,6 +100,11 @@ class App extends Component {
       //We can use javascript to change the color of button
       //When people are shown, the button will turn red
       style.backgroundColor = "red";
+      //Using radium we can use psudoselectors for inline styles
+      style[':hover'] = {
+        backgroundColor: 'lightred',
+        color: 'black'
+      }
     }
 
     //Use classes variable to do styling for the button
@@ -108,22 +118,25 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <h1>This is an React App</h1>
-        {/* This will join the two classes in the "classes" array */}
-        <p className={classes.join(' ')}>This is really working!</p>
-        {/* One way of switching names with the click but is not recommended */}
-        <button 
-        //Using constant variable "style" to give button inline styling
-        //Button is used to hide and unhide Person components
-        style={style}
-        onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {/* Use persons variable to render Persons components */}
-        {persons}
-      </div>
+      //Must wrap app in StyleRoot for Radium media queries to work
+      <StyleRoot>
+        <div className="App">
+          <h1>This is an React App</h1>
+          {/* This will join the two classes in the "classes" array */}
+          <p className={classes.join(' ')}>This is really working!</p>
+          {/* One way of switching names with the click but is not recommended */}
+          <button 
+          //Using constant variable "style" to give button inline styling
+          //Button is used to hide and unhide Person components
+          style={style}
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {/* Use persons variable to render Persons components */}
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
  

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 //You can omit the .js at the end
 import Person from './Person/Person'
+import { whileStatement } from '@babel/types';
 
 class App extends Component {
   //Remember state is a JavaScript object
@@ -62,7 +63,8 @@ class App extends Component {
 
     //We use this variable to do inline styling for the button
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -89,6 +91,10 @@ class App extends Component {
           })}
         </div> 
       );
+      
+      //We can use javascript to change the color of button
+      //When people are shown, the button will turn red
+      style.backgroundColor = "red";
     }
 
     return (

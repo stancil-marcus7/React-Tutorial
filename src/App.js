@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from './App.module.css';
 //You can omit the .js at the end
 import Person from './Person/Person'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 
 class App extends Component {
@@ -71,14 +72,15 @@ class App extends Component {
         <div>
           {/* Use map function to perform conditional rendering using Javascript */}
           {this.state.persons.map((person, index) => {
-            return <Person 
+            return <ErrorBoundary key={person.id}>
+              <Person 
               //This will allow us to delete a Person component by clicking them; must use arrow function to use paramaters in function calls
               click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}
               //Use the key property so that React will know exactly which component it's dealing with
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)}/>
+              
+              changed={(event) => this.nameChangedHandler(event, person.id)}/></ErrorBoundary>
           })}
         </div> 
       );

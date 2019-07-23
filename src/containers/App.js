@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import classes from './App.module.css';
 import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass'
+import withClass from '../hoc/WithClass'
+import Aux from '../hoc/Aux';
 
 
 
@@ -121,7 +122,7 @@ class App extends Component {
 
     return (
       //Must wrap app in StyleRoot for Radium media queries to work
-        <WithClass className={classes.App}>
+        <Aux>
           <button onClick={() => {
             this.setState({showCockpit: false});
           }
@@ -129,10 +130,10 @@ class App extends Component {
           {cockpit}
           {/* Use persons variable to render Persons components */}
           {persons}
-        </WithClass>
+          </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
  

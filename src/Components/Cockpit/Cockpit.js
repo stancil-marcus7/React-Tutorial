@@ -24,7 +24,7 @@ const cockpit = (props) => {
     
     return(
         <div className = {classes.Cockpit}>
-            <h1>This is an React App</h1>
+            <h1>{props.title}</h1>
             {/* This will join the two classes in the "classes" array */}
             <p className={assignedClasses.join(' ')}>This is really working!</p>
             {/*One way of switching names with the click but is not recommended */}

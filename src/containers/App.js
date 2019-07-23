@@ -6,6 +6,13 @@ import Cockpit from '../Components/Cockpit/Cockpit';
 
 
 class App extends Component {
+
+  //This is called first
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+    //You could set state here with this.state
+  }
   //Remember state is a JavaScript object
   state = {
     persons: [
@@ -16,6 +23,17 @@ class App extends Component {
     otherState: 'some other value',
     //This property will be used to show the Persons or not
     showPersons: false
+  }
+
+  //This is called second
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps')
+    return state;
+  }
+
+  //This is called fourth
+  componentDidMount(){
+    console.log('[App.js] componentDidMount')
   }
 
   nameChangedHandler = (event, id) => {
@@ -59,7 +77,10 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  //This is called third
   render(){
+    console.log('[App.js render');
+
     //persons is the variable that we will use to determine whether to show or unshow the Persons components
     let persons = null;
 
@@ -76,6 +97,8 @@ class App extends Component {
       //Must wrap app in StyleRoot for Radium media queries to work
         <div className={classes.App}>
           <Cockpit
+            //Used the property from the App component on index.js to get title for app in Cockpit component
+            title={this.props.appTitle}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
             clicked={this.togglePersonsHandler}/>

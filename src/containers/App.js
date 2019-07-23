@@ -31,6 +31,15 @@ class App extends Component {
     return state;
   }
 
+  // componentWillMount(){
+  //   console.log('[App.js] componentWillMount');
+  // }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
   //This is called fourth
   componentDidMount(){
     console.log('[App.js] componentDidMount')

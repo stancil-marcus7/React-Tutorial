@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Radium, { StyleRoot } from 'radium';
-import './App.css';
+import classes from './App.module.css';
 //You can omit the .js at the end
 import Person from './Person/Person'
 
@@ -60,24 +59,11 @@ class App extends Component {
   }
 
   render(){
-
-    //We use this variable to do inline styling for the button
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      //Using radium we can use psudoselectors for inline styles
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    }
-
     //persons is the variable that we will use to determine whether to show or unshow the Persons components
     let persons = null;
+
+    //Used for button class
+    let btnClass = '';
 
     //if this.state.showPersons is true then the Person components will show; if false then they will unshow
     if (this.state.showPersons){ 
@@ -97,46 +83,39 @@ class App extends Component {
         </div> 
       );
       
-      //We can use javascript to change the color of button
-      //When people are shown, the button will turn red
-      style.backgroundColor = "red";
-      //Using radium we can use psudoselectors for inline styles
-      style[':hover'] = {
-        backgroundColor: 'lightred',
-        color: 'black'
-      }
+      //If btn is clicked on then it turns red
+      btnClass = classes.Red;
     }
 
-    //Use classes variable to do styling for the button
-    let classes = [];
+    //Use assignedClasses variable to do styling for the button
+    const assignedClasses = [];
 
     if (this.state.persons.length <= 2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if(this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
       //Must wrap app in StyleRoot for Radium media queries to work
-      <StyleRoot>
-        <div className="App">
+        <div className={classes.App}>
           <h1>This is an React App</h1>
           {/* This will join the two classes in the "classes" array */}
-          <p className={classes.join(' ')}>This is really working!</p>
+          <p className={assignedClasses.join(' ')}>This is really working!</p>
           {/* One way of switching names with the click but is not recommended */}
-          <button 
+          <button
+          //Add btnClass here
+          className={btnClass} 
           //Using constant variable "style" to give button inline styling
           //Button is used to hide and unhide Person components
-          style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {/* Use persons variable to render Persons components */}
           {persons}
         </div>
-      </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+export default App;
  

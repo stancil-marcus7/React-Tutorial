@@ -5,11 +5,6 @@ import classes from './Person.module.css'
 //ES6 version of component
 //Dont need import from component because we are exporting a function and not a compnent
 const person = (props) => {
-    const rnd = Math.random();
-
-        if (rnd > 0.7) {
-            throw new Error ( 'Something went wrong')
-        }
     //Returning JSX with paragraph that says "I'm a person"
     //Out put dynamic content like the random number for the age of the person
     //In class based components it would be this.props

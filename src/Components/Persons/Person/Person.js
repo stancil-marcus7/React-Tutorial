@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 //Added import from Person.css
 import classes from './Person.module.css'
 import Aux from '../../../hoc/Aux';
@@ -21,7 +21,7 @@ class Person extends Component{
             <p>{this.props.children}</p>
             {/* Included value={props.name} so that we can see the names of the person's in the input boxes */}
             <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            </Aux>
+        </Aux>
     )
     }
     

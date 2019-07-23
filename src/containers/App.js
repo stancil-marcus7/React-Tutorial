@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classes from './App.module.css';
-//You can omit the .js at the end
-import Person from '../Components/Person/Person'
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Components/Cockpit/Cockpit';
 
 
 
@@ -63,54 +63,22 @@ class App extends Component {
     //persons is the variable that we will use to determine whether to show or unshow the Persons components
     let persons = null;
 
-    //Used for button class
-    let btnClass = '';
-
-    //if this.state.showPersons is true then the Person components will show; if false then they will unshow
+    // Because all the deleting and changing is done in the Persons component this is all we need to display the Persons with the correct functionality
     if (this.state.showPersons){ 
-      persons = (
-        <div>
-          {/* Use map function to perform conditional rendering using Javascript */}
-          {this.state.persons.map((person, index) => {
-            return <Person 
-              //This will allow us to delete a Person component by clicking them; must use arrow function to use paramaters in function calls
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              //Use the key property so that React will know exactly which component it's dealing with
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)}/>
-          })}
-        </div> 
-      );
-      
-      //If btn is clicked on then it turns red
-      btnClass = classes.Red;
-    }
-
-    //Use assignedClasses variable to do styling for the button
-    const assignedClasses = [];
-
-    if (this.state.persons.length <= 2){
-      assignedClasses.push(classes.red);
-    }
-    if(this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
+      persons = <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler}
+            />
     }
 
     return (
       //Must wrap app in StyleRoot for Radium media queries to work
         <div className={classes.App}>
-          <h1>This is an React App</h1>
-          {/* This will join the two classes in the "classes" array */}
-          <p className={assignedClasses.join(' ')}>This is really working!</p>
-          {/* One way of switching names with the click but is not recommended */}
-          <button
-          //Add btnClass here
-          className={btnClass} 
-          //Using constant variable "style" to give button inline styling
-          //Button is used to hide and unhide Person components
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          <Cockpit
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler}/>
           {/* Use persons variable to render Persons components */}
           {persons}
         </div>

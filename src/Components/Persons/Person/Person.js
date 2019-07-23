@@ -22,5 +22,4 @@ const person = (props) => {
 
 }
 
-//Must wrap export with radium
 export default person;

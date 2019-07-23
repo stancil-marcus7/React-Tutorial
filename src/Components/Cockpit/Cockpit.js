@@ -1,9 +1,31 @@
-import React, {useEffect} from 'react';
+import React, { useEffect}  from 'react';
 import classes from './Cockpit.module.css'
 
 
 // We used the props from the Cockpit component
-const cockpit = (props) => {
+const Cockpit = (props) => {
+
+    //Runs for ebery render cycle; can send http requests here
+    //Combines componentDidMount and componentDidUpdate
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        setTimeout(()=> {
+            alert('Saved data to cloud!');
+        }, 1000);
+        //This tuns BEFORE the main useEffect function runs, but AFTER the (first) render cycle!
+        return () => {
+            console.log('[Cockpit.js] clean up work in useEffect')
+        };
+        //If you want UseEffect to run when the component renders the first time
+    }, []);
+
+    useEffect(() => {
+        console.log('[Cockpit.js 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] clean up work in 2nd useEffect');
+        }
+    })
+
     //Use assignedClasses variable to do styling for the button
     //Took this from App.js; will use Cockpit.modules.css to add css to button
     const assignedClasses = [];
@@ -15,10 +37,10 @@ const cockpit = (props) => {
         btnClass = classes.Red;
     }
 
-    if (props.persons.length <= 2){
+    if (props.personsLength <= 2){
       assignedClasses.push(classes.red);
     }
-    if(props.persons.length <= 1) {
+    if(props.personsLength <= 1) {
       assignedClasses.push(classes.bold);
     }
     
@@ -38,4 +60,5 @@ const cockpit = (props) => {
     )
 }
 
-export default cockpit;
+//Will prevent component from rendering when it doesn't need to
+export default React.memo(Cockpit);

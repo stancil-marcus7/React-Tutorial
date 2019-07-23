@@ -22,7 +22,8 @@ class App extends Component {
     ],
     otherState: 'some other value',
     //This property will be used to show the Persons or not
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   }
 
   //This is called second
@@ -42,7 +43,11 @@ class App extends Component {
 
   //This is called fourth
   componentDidMount(){
-    console.log('[App.js] componentDidMount')
+    console.log('[App.js] componentDidMount');
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
   }
 
   nameChangedHandler = (event, id) => {
@@ -102,15 +107,25 @@ class App extends Component {
             />
     }
 
+    let cockpit = null;
+
+    if(this.state.showCockpit){
+      cockpit = <Cockpit
+        //Used the property from the App component on index.js to get title for app in Cockpit component
+        title={this.props.appTitle}
+        showPersons={this.state.showPersons}
+        personsLength={this.state.persons.lengthX}
+        clicked={this.togglePersonsHandler}/>
+    }
+
     return (
       //Must wrap app in StyleRoot for Radium media queries to work
         <div className={classes.App}>
-          <Cockpit
-            //Used the property from the App component on index.js to get title for app in Cockpit component
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            persons={this.state.persons}
-            clicked={this.togglePersonsHandler}/>
+          <button onClick={() => {
+            this.setState({showCockpit: false});
+          }
+          }>Remove Cockpit</button>
+          {cockpit}
           {/* Use persons variable to render Persons components */}
           {persons}
         </div>

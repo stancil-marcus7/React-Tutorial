@@ -1,17 +1,20 @@
-import React, { useEffect}  from 'react';
+import React, { useEffect, useRef }  from 'react';
 import classes from './Cockpit.module.css'
 
 
 // We used the props from the Cockpit component
 const Cockpit = (props) => {
+    //Added this ref to click button after everything is rendered so that the Person components already show upon enteirng the page
+    const toggleBtnRef = useRef(null);
 
-    //Runs for ebery render cycle; can send http requests here
+    //Runs after every render cycle; can send http requests here
     //Combines componentDidMount and componentDidUpdate
     useEffect(() => {
-        console.log('[Cockpit.js] useEffect');
-        setTimeout(()=> {
-            alert('Saved data to cloud!');
-        }, 1000);
+        // console.log('[Cockpit.js] useEffect');
+        // setTimeout(()=> {
+        //     alert('Saved data to cloud!');
+        // }, 1000);
+        toggleBtnRef.current.click();
         //This tuns BEFORE the main useEffect function runs, but AFTER the (first) render cycle!
         return () => {
             console.log('[Cockpit.js] clean up work in useEffect')
@@ -51,6 +54,7 @@ const Cockpit = (props) => {
             <p className={assignedClasses.join(' ')}>This is really working!</p>
             {/*One way of switching names with the click but is not recommended */}
             <button
+            ref={toggleBtnRef}
             //Add btnClass here
             className={btnClass} 
             //Using constant variable "style" to give button inline styling

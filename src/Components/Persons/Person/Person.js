@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import withClass from '../../../hoc/WithClass';
 import Aux from '../../../hoc/Aux';
 import classes from './Person.module.css';
-
+import AuthContext from '../../../context/auth-context';
 //ES6 version of component
 //Dont need import from component because we are exporting a function and not a compnent
 //Class based components require importing Component, "this" before props, and the render() function
@@ -29,6 +29,11 @@ class Person extends Component{
         //Must use parenthesis to return multiple lines
         return(
             <Aux>
+                <AuthContext.Consumer>
+                    {context => 
+                        context.authenticated ? <p>Authenticated!</p> : <p>Please log in</p>
+                    }
+                </AuthContext.Consumer>
                 <p onClick={this.props.click}>I'm {this.props.name} and I'm {this.props.age} years old</p>
                 {/* Props.children accesses anything within the JSX elements */}
                 {/* onClick is the event listener and it uses props.click from the person compnent in app.js to access switchNameHandler */}

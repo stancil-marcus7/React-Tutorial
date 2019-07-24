@@ -54,7 +54,8 @@ class Persons extends PureComponent{
           age={person.age}
           //Use the key property so that React will know exactly which component it's dealing with
           key={person.id}
-          changed={(event) => this.props.changed(event, person.id)}/>
+          changed={(event) => this.props.changed(event, person.id)}
+          isAuth={this.props.isAuthenticated}/>
       })
   }
   };

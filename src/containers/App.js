@@ -4,6 +4,7 @@ import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 import withClass from '../hoc/WithClass'
 import Aux from '../hoc/Aux';
+import AuthContext from '../context/auth-context';
 
 
 
@@ -26,7 +27,8 @@ class App extends Component {
     //This property will be used to show the Persons or not
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false,
   }
 
   //This is called second
@@ -100,6 +102,10 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
+
   //This is called third
   render(){
     console.log('[App.js render');
@@ -116,27 +122,28 @@ class App extends Component {
             />
     }
 
-    let cockpit = null;
-
-    if(this.state.showCockpit){
-      cockpit = <Cockpit
-        //Used the property from the App component on index.js to get title for app in Cockpit component
-        title={this.props.appTitle}
-        showPersons={this.state.showPersons}
-        personsLength={this.state.persons.lengthX}
-        clicked={this.togglePersonsHandler}/>
-    }
-
     return (
       //Must wrap app in StyleRoot for Radium media queries to work
         <Aux>
           <button onClick={() => {
             this.setState({showCockpit: false});
-          }
-          }>Remove Cockpit</button>
-          {cockpit}
+          }}
+          >Remove Cockpit
+          </button>
+          <AuthContext.Provider value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler}}>
+          {this.state.showCockpit ? (
+              <Cockpit
+              //Used the property from the App component on index.js to get title for app in Cockpit component
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.lengthX}
+              clicked={this.togglePersonsHandler}/>
+          ): null}
           {/* Use persons variable to render Persons components */}
           {persons}
+          </AuthContext.Provider>
           </Aux>
     );
   }

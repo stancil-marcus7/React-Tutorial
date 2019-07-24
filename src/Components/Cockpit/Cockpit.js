@@ -1,4 +1,4 @@
-import React, { useEffect, useRef }  from 'react';
+import React, { useEffect, useRef, useContext }  from 'react';
 import classes from './Cockpit.module.css'
 import AuthContext from '../../context/auth-context';
 
@@ -7,6 +7,8 @@ const Cockpit = (props) => {
     //Added this ref to click button after everything is rendered so that the Person components already show upon entering the program
     const toggleBtnRef = useRef(null);
 
+    const authContext = useContext(AuthContext);
+    console.log(authContext.authenticated);
     //Runs after every render cycle; can send http requests here
     //Combines componentDidMount and componentDidUpdate
     useEffect(() => {
@@ -60,9 +62,9 @@ const Cockpit = (props) => {
             //Using constant variable "style" to give button inline styling
             //Button is used to hide and unhide Person components
             onClick={props.clicked}>Toggle Persons</button>
-            <AuthContext.Consumer>
-                {context => <button onClick={context.login}>Log In</button>}
-            </AuthContext.Consumer>
+            {/* This is the way we use AuthContext for functional components (By using the useContext hook) */}
+            <button onClick={authContext.login}>Log In</button>
+            
           </div>
     )
 }

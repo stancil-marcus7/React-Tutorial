@@ -5,7 +5,8 @@ import React from 'react';
 const withClass = (WrappedComponent, className) => {
     return props => (
         <div className={className}>
-            <WrappedComponent/>
+            {/* {...props} is all of the props of the Component that uses withClass */}
+            <WrappedComponent {...props}/>
         </div>
     )
 }

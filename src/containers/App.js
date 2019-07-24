@@ -25,7 +25,8 @@ class App extends Component {
     otherState: 'some other value',
     //This property will be used to show the Persons or not
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   }
 
   //This is called second
@@ -73,8 +74,14 @@ class App extends Component {
     persons[personsIndex] = person;
 
     //Finally changing the state immutably
-    this.setState({persons: persons})
-  }
+    //By using the anonymous function with prevState and props we can correctly update a state which relies on the previous state
+    this.setState((prevState, props) => {
+     return {
+       persons: persons, 
+       changeCounter: prevState.changeCounter +1
+      }
+    });
+  };
 
   //This function takes a Person components index and splices it from the array of persons and then resets the state
   deletePersonHandler = (personsIndex) => {
